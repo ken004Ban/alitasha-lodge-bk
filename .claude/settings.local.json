@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv \"./alitasha-lodge-system/backend/alitasha-lodge-system/backend/alitasha-system/frontend/src/pages/\"* frontend/src/pages/)",
+      "Bash(mv \"./alitasha-lodge-system/backend/alitasha-lodge-system/backend/alitasha-system/frontend/src/components/\"* frontend/src/components/)",
+      "Bash(mv \"./alitasha-lodge-system/backend/alitasha-lodge-system/backend/alitasha-system/frontend/src/hooks/\"* frontend/src/hooks/)",
+      "Bash(mv \"./alitasha-lodge-system/backend/alitasha-lodge-system/backend/alitasha-system/frontend/src/utils/\"* frontend/src/utils/)",
+      "Bash(npm install *)"
+    ]
+  }
+}
