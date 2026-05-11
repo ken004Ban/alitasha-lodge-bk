@@ -91,7 +91,7 @@ const App = () => {
             <span className="font-display text-3xl text-primary-gold">Alitasha</span>
             <span className="text-sm tracking-widest uppercase text-slate-500">Lodge</span>
           </p>
-          <p className="mt-3 text-sm">&copy; 2026 Alitasha Lodge Smart Systems. All Rights Reserved.</p>
+          <p className="mt-3 text-sm">&copy; 2026 Nyota Tech Systems. All Rights Reserved.</p>
           <p className="text-xs mt-2 text-slate-500">Designed for high-performance hospitality management.</p>
           <div className="mt-4 inline-flex items-center gap-1.5 bg-blue-900/50 text-blue-300 text-[10px] font-mono px-3 py-1 rounded-full border border-blue-800">
             <Shield size={10} aria-hidden="true" /> Demo Mode
