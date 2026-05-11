@@ -7,7 +7,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import axios from 'axios';
+import api from '../lib/api';
 
 const STORAGE_KEY = 'alitasha-selected-branch';
 
@@ -50,7 +50,7 @@ export function BranchProvider({ children }: { children: ReactNode }) {
     setBranchesLoading(true);
     setBranchesError(null);
     try {
-      const res = await axios.get<Branch[]>('http://localhost:5000/api/branches');
+      const res = await api.get<Branch[]>('/api/branches');
       setBranches(res.data);
     } catch {
       setBranchesError('Could not load branches.');

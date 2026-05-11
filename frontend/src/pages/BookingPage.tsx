@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, User, Mail, Phone, BedDouble, CheckCircle, MapPin, ArrowLeft, ArrowRight, Home } from 'lucide-react';
-import axios from 'axios';
+import api from '../lib/api';
 import { useBranch } from '../context/BranchContext';
 
 type Room = {
@@ -58,8 +58,8 @@ const BookingPage = () => {
   useEffect(() => {
     if (formData.branch_id) {
       setRoomsLoading(true);
-      axios
-        .get<Room[]>(`http://localhost:5000/api/rooms?branch_id=${formData.branch_id}`)
+      api
+        .get<Room[]>(`/api/rooms?branch_id=${formData.branch_id}`)
         .then((res) => setRooms(res.data))
         .catch(() => setRooms([]))
         .finally(() => setRoomsLoading(false));
@@ -80,7 +80,7 @@ const BookingPage = () => {
     setError('');
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/bookings', formData);
+      await api.post('/api/bookings', formData);
       setStep(3);
     } catch {
       setError('Booking failed. Please check your details and try again.');

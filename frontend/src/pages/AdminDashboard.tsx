@@ -34,7 +34,7 @@ import {
   XCircle,
   Clock,
 } from 'lucide-react';
-import axios from 'axios';
+import api from '../lib/api';
 import { useBranch } from '../context/BranchContext';
 
 const COLORS = ['#1e3a8a', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe'];
@@ -115,9 +115,9 @@ const AdminDashboard = () => {
       const q = activeBranchId ? `?branch_id=${activeBranchId}` : '';
       try {
         const [overviewRes, performanceRes, locationRes] = await Promise.all([
-          axios.get<Overview>(`http://localhost:5000/api/analytics/overview${q}`),
-          axios.get<BranchRow[]>(`http://localhost:5000/api/analytics/branch-performance${q}`),
-          axios.get<LocationRow[]>(`http://localhost:5000/api/analytics/visitor-locations${q}`),
+          api.get<Overview>(`/api/analytics/overview${q}`),
+          api.get<BranchRow[]>(`/api/analytics/branch-performance${q}`),
+          api.get<LocationRow[]>(`/api/analytics/visitor-locations${q}`),
         ]);
         setOverview(overviewRes.data);
         setBranchData(performanceRes.data);
@@ -138,7 +138,7 @@ const AdminDashboard = () => {
       setBookingsLoading(true);
       try {
         const q = activeBranchId ? `?branch_id=${activeBranchId}&limit=50` : '?limit=50';
-        const res = await axios.get<Booking[]>(`http://localhost:5000/api/bookings${q}`);
+        const res = await api.get<Booking[]>(`/api/bookings${q}`);
         setBookings(res.data);
       } catch {
         setBookings([]);
@@ -162,7 +162,7 @@ const AdminDashboard = () => {
 
   const updateBookingStatus = async (id: string, status: string) => {
     try {
-      await axios.patch(`http://localhost:5000/api/bookings/${id}`, { status });
+      await api.patch(`/api/bookings/${id}`, { status });
       setBookings((prev) => prev.map((b) => (b.id === id ? { ...b, status } : b)));
     } catch {
       alert('Failed to update booking status.');
@@ -171,7 +171,7 @@ const AdminDashboard = () => {
 
   const toggleBranchBookings = async (id: string, accepting: boolean) => {
     try {
-      await axios.patch(`http://localhost:5000/api/branches/${id}`, { accepting_bookings: accepting });
+      await api.patch(`/api/branches/${id}`, { accepting_bookings: accepting });
       window.location.reload();
     } catch {
       alert('Failed to update branch settings.');
@@ -248,7 +248,7 @@ const AdminDashboard = () => {
         </div>
       </aside>
 
-      <main className="flex-grow p-6 lg:p-10 overflow-y-auto">
+      <main className="flex-grow p-6 lg:p-10 overflow-y-auto pb-20 lg:pb-10">
         <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
           <div>
             <h1 className="text-3xl font-bold text-slate-900">{viewTitle}</h1>
@@ -647,6 +647,24 @@ const AdminDashboard = () => {
           </div>
         )}
       </main>
+
+      <nav className="fixed bottom-0 inset-x-0 z-50 bg-white border-t border-slate-200 lg:hidden flex items-center justify-around px-2 py-1.5 shadow-[0_-2px_12px_rgba(0,0,0,0.08)]" aria-label="Mobile navigation">
+        {sidebarItems.map((item) => (
+          <button
+            key={item.key}
+            onClick={() => setView(item.key)}
+            className={`flex flex-col items-center gap-0.5 p-1.5 rounded-lg transition-all flex-1 max-w-[80px] ${
+              view === item.key ? 'text-primary-blue' : 'text-slate-400 hover:text-slate-600'
+            }`}
+            title={item.label}
+          >
+            <item.icon size={18} />
+            <span className="text-[9px] font-medium leading-none whitespace-nowrap">
+              {item.label.split(' ')[0]}
+            </span>
+          </button>
+        ))}
+      </nav>
     </div>
   );
 };

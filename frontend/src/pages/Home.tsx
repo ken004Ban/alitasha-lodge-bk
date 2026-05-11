@@ -249,12 +249,12 @@ const HomePage = () => {
             />
             <img
               src="https://images.unsplash.com/photo-1571896263585-216d58267555?auto=format&fit=crop&w=400&q=80"
-              className="rounded-2xl shadow-lg mt-8"
+              className="rounded-2xl shadow-lg lg:mt-8 max-lg:mt-0"
               alt="Resort"
             />
             <img
               src="https://images.unsplash.com/photo-1520257506278-f75b8a0b716c?auto=format&fit=crop&w=400&q=80"
-              className="rounded-2xl shadow-lg -mt-8"
+              className="rounded-2xl shadow-lg lg:-mt-8 max-lg:mt-0"
               alt="Pool"
             />
             <img

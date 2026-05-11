@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import api from '../lib/api';
 import { useBranch } from '../context/BranchContext';
 
 let backendAvailable = true;
@@ -18,7 +18,7 @@ const useVisitorTracker = () => {
 
     const trackVisit = async () => {
       try {
-        await axios.post('http://localhost:5000/api/track', {
+        await api.post('/api/track', {
           page_path: location.pathname,
           country: 'Zambia',
           city: 'Lusaka',
