@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: alitasha-lodge
+    runtime: node
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd backend && node src/server.js
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false

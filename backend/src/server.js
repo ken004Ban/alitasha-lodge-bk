@@ -236,5 +236,15 @@ app.patch('/api/branches/:id', async (req, res) => {
     res.json({ success: true, data });
 });
 
+// Serve built frontend in production
+const path = require('path');
+const frontendDist = path.join(__dirname, '..', '..', 'frontend', 'dist');
+app.use(express.static(frontendDist));
+app.get('*', (req, res) => {
+    if (!req.path.startsWith('/api')) {
+        res.sendFile(path.join(frontendDist, 'index.html'));
+    }
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Alitasha Backend running on port ${PORT}`));
